@@ -1,22 +1,15 @@
-using Microsoft.Maui.Controls;
-using BLOGSOCIALUDLA.Models;
-using System.Collections.ObjectModel;
-using BLOGSOCIALUDLA.Data;
+using System;
+using System.Net.Http;
 using BLOGSOCIALUDLA.ViewModels;
+using Microsoft.Maui.Controls;
 
-namespace BLOGSOCIALUDLA.Views
+
+public partial class PostFica : ContentPage
 {
-    public partial class PostFica : ContentPage
+    public PostFica()
     {
-        public ObservableCollection<Post> Posts { get; set; }
-
-        public PostFica()
-        {
-            InitializeComponent();
-            BindingContext = new PostFicaViewModel();
-             
-        }
-
-        
+        InitializeComponent();
+        var blogService = new BlogService(new HttpClient { BaseAddress = new Uri("https://localhost:7034/") });
+        BindingContext = new PostFicaViewModel(blogService);
     }
 }
